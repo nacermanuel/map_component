@@ -4,8 +4,8 @@ import './TreasuryMap.css'
 
 const TreasuryMap = () => {
   const mapCenterTitle = 'assets/interactive-map/the-treasury-tech-landscape-title.png';
-  
   const mapBackgroundImage = 'assets/interactive-map/background.webp'
+
   const categories = {
     'category-1': 'FIDP (Financial Instrument Dealing Platform)',
     'category-2': 'FDF (Financial Data Feeding)',
@@ -65,7 +65,9 @@ const TreasuryMap = () => {
 
   // Your fetchDataFromAPI implementation
   const fetchDataFromAPI = async () => {
-    const apiUrl = 'https://mapdata-production.up.railway.app/data';
+    
+    const apiUrl = 'https://treasurymapbackend-production.up.railway.app/api/v1/mapdata';
+    //const apiUrl = 'data.json';
 
     return fetch(apiUrl)
       .then(response => {
@@ -76,6 +78,7 @@ const TreasuryMap = () => {
       })
       .then(data => {
         setMapData(data);
+        //console.log(data);
         return data;
       })
       .catch(error => {
@@ -97,11 +100,11 @@ const TreasuryMap = () => {
 
   const buildFilters = (data) => {
     const filters = {};
-
+    
     Object.keys(filtersConfig).forEach((filterKey) => {
       filters[filterKey] = [];
     });
-    data.forEach((category) => {
+    data?.forEach((category) => {
       
       category.logos.forEach((logo) => {
         Object.keys(filters).forEach((filterKey) => {
@@ -197,6 +200,18 @@ const TreasuryMap = () => {
     });
   };
 
+
+  // ESTA FUNCION ES LLAMADA VARIAS VECES DE FORMA ESTATICA 
+  // ESTA FUNCION renderCategoryLogos TOMA COMO PARAMETROS "CATEGORY" Y "LOGOCOUNT"
+  // PARAMETRO "CATEGORY" ES ENVIADO DE FORMA ESTATICA DESDE EL HTML ESCRITO Y SE ENCARGA DE ESPECIFICAR EL CLASS DE EL DIV PARA 
+  // SEGUN ESO DISTRIBUIR LOS LOGOS EN EL ESPACIO PORQUE 
+  // EL PARAMETRO "logoCount" ES DEFINIDO MANUALMENTE, LITERALMENTE ES UN NUMERO ESCRITO. ESTE NUMERO UNICAMENTE SIRVE PARA 
+  // QUE SEPA CUANTAS ITERACIONES TIENE QUE HACER EL MAP 
+  // EL MAP GENERA UN INDEX EN CADA ITERACION Y ES ESE INDEX EL QUE COLOCA EN LA PLANTILLA DE TEXTO DENTRO DE LAS BACKTICKS
+
+  //ESTO QUIERE DECIR QUE PARA QUE ESTE CODIGO FUNCIONE, TIENES QUE TENER CONTROLADO EL NOMBRE CON EL QUE ES ALMACENADO EL LOGO, 
+  //DONDE SE MARCA EL NUMERO DE LA CATEGORIA Y EL NUMERO DE LOGO DENTRO DE ESA CATEGORIA
+
   const renderCategoryLogos = (category, logoCount) => (
     <div className={`category-static ${category}`}>
       {Array.from({ length: logoCount }).map((_, index) => (
@@ -255,6 +270,7 @@ const TreasuryMap = () => {
     return selectedCategory || filteredLogos.length;
   }, [selectedCategory, filteredLogos]);
   
+
   useEffect(() => {
     const startMap = async () => {
       const data = await fetchDataFromAPI();
@@ -296,6 +312,9 @@ const TreasuryMap = () => {
                   <div key={index}><span></span></div>
                 ))}
               </div>
+
+              {/*  "MANUALMENTE" COLOCA CADA UNA DE LAS CATEGORIAS PATA QUE EJECUTE LA FUNCION RENDERCATEGORYLOGOS*/}
+
               {renderCategoryLogos('category-1', 11)}
               {renderCategoryLogos('category-2', 5)}
               {renderCategoryLogos('category-3', 5)}
@@ -339,7 +358,7 @@ const TreasuryMap = () => {
                   {filteredLogos.map((logo, index) => (
                     <div key={index} className="category-logo">
                       <div className="category-logo-inner">
-                        <a href="http://www.example.com">
+                        <a href={logo.url}>
                           <div style={{ backgroundImage: `url(${logo.image})` }}></div>
                         </a>
                       </div>

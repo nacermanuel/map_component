@@ -1,0 +1,579 @@
+[
+    {
+        "id": 0,
+        "categoryName": "Category 1",
+        "categoryKey": "category-1",
+        "categoryImage": "./assets/interactive-map/categories/category-1.png",
+        "class": "",
+        "logos": [
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227252/SGX_FX_Logo_RGB_hqlwmq.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/3",
+                "keywords": [],
+                "subcategories": [
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "headequarterLocation": "Singapore",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227634/Onbrane1_tzwied.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/8",
+                "keywords": [],
+                "subcategories": [
+                    4,
+                    11,
+                    25
+                ],
+                "headequarterLocation": "Paris, France",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227792/treasuryspring_0_enehje.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/11",
+                "keywords": [],
+                "subcategories": [
+                    1
+                ],
+                "headequarterLocation": "Channel Islands",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416107/02cc34a1-222c-46aa-8215-95e2c309ea05-Onbrane1.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/18",
+                "keywords": [],
+                "subcategories": [
+                    1
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416200/68db222d-3955-4e7f-a251-88919bc1ce1c-Finologee-new.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/19",
+                "keywords": [],
+                "subcategories": [
+                    4,
+                    6,
+                    8,
+                    29
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416360/15daa5c1-6ccd-49d0-b9b1-ca2f4a41bd50-Finastra.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/21",
+                "keywords": [],
+                "subcategories": [
+                    11,
+                    18,
+                    20
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416580/bf19010d-f732-4a02-b965-2ac3f5a18e5a-SGX%20FX%20Logo%20%28RGB%29.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/22",
+                "keywords": [],
+                "subcategories": [
+                    1,
+                    3,
+                    5,
+                    31
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416882/841b8e3e-3a82-4b91-9f26-d86170c178f0-menu-button-of-three-horizontal-lines.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/23",
+                "keywords": [],
+                "subcategories": [
+                    3,
+                    6,
+                    8
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704418629/9d6ff827-c262-41f6-b1ee-1a1ed782c679-WhatsApp%20Image%202023-11-17%20at%2011.24.49_33671f20.jpg.jpg",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/24",
+                "keywords": [],
+                "subcategories": [
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "categoryName": "Category 2",
+        "categoryKey": "category-2",
+        "categoryImage": "./assets/interactive-map/categories/category-2.png",
+        "logos": [
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704418629/9d6ff827-c262-41f6-b1ee-1a1ed782c679-WhatsApp%20Image%202023-11-17%20at%2011.24.49_33671f20.jpg.jpg",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/24",
+                "keywords": [],
+                "subcategories": [
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "categoryName": "Category 3",
+        "categoryKey": "category-3",
+        "categoryImage": "./assets/interactive-map/categories/category-3.png",
+        "logos": []
+    },
+    {
+        "id": 3,
+        "categoryName": "Category 4",
+        "categoryKey": "category-4",
+        "categoryImage": "./assets/interactive-map/categories/category-4.png",
+        "logos": [
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227735/NX-Partners_logo_Top-menu_dnpqbm.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/10",
+                "keywords": [],
+                "subcategories": [],
+                "headequarterLocation": "Belgium",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227844/utsit_kraquu.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/12",
+                "keywords": [],
+                "subcategories": [],
+                "headequarterLocation": "France",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416580/bf19010d-f732-4a02-b965-2ac3f5a18e5a-SGX%20FX%20Logo%20%28RGB%29.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/22",
+                "keywords": [],
+                "subcategories": [
+                    1,
+                    3,
+                    5,
+                    31
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416882/841b8e3e-3a82-4b91-9f26-d86170c178f0-menu-button-of-three-horizontal-lines.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/23",
+                "keywords": [],
+                "subcategories": [
+                    3,
+                    6,
+                    8
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "categoryName": "Category 5",
+        "categoryKey": "category-5",
+        "categoryImage": "./assets/interactive-map/categories/category-5.png",
+        "logos": [
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227581/Logo_Transfermate_gzfg1f.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/7",
+                "keywords": [],
+                "subcategories": [
+                    3
+                ],
+                "headequarterLocation": "Kilkenny, Ireland",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227682/Logo_Trustpair_qlgwpa.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/9",
+                "keywords": [],
+                "subcategories": [
+                    2,
+                    25
+                ],
+                "headequarterLocation": "Paris, France",
+                "activeIn": null
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "categoryName": "Category 6",
+        "categoryKey": "category-6",
+        "categoryImage": "./assets/interactive-map/categories/category-6.png",
+        "logos": [
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227475/ion_kadbbu.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/5",
+                "keywords": [],
+                "subcategories": [
+                    1,
+                    2,
+                    3
+                ],
+                "headequarterLocation": "New York",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227533/Finologee-new_tth8tq.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/6",
+                "keywords": [],
+                "subcategories": [
+                    1,
+                    2,
+                    13
+                ],
+                "headequarterLocation": "Leudelange, Luxembourg",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227909/Finastra_etfdlo.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/13",
+                "keywords": [],
+                "subcategories": [],
+                "headequarterLocation": "London UK",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227961/Crowd_Data_Systems_old4gu.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/14",
+                "keywords": [],
+                "subcategories": [
+                    1,
+                    2,
+                    3,
+                    7
+                ],
+                "headequarterLocation": "UK",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416580/bf19010d-f732-4a02-b965-2ac3f5a18e5a-SGX%20FX%20Logo%20%28RGB%29.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/22",
+                "keywords": [],
+                "subcategories": [
+                    1,
+                    3,
+                    5,
+                    31
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "categoryName": "Category 7",
+        "categoryKey": "category-7",
+        "categoryImage": "./assets/interactive-map/categories/category-7.png",
+        "logos": [
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416360/15daa5c1-6ccd-49d0-b9b1-ca2f4a41bd50-Finastra.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/21",
+                "keywords": [],
+                "subcategories": [
+                    11,
+                    18,
+                    20
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "categoryName": "Category 8",
+        "categoryKey": "category-8",
+        "categoryImage": "./assets/interactive-map/categories/category-8.png",
+        "logos": []
+    },
+    {
+        "id": 8,
+        "categoryName": "Category 9",
+        "categoryKey": "category-9",
+        "categoryImage": "./assets/interactive-map/categories/category-9.png",
+        "logos": [
+            {
+                "image": "./assets/interactive-map/categories/category-9/logo-1.jpg",
+                "url": "example.com",
+                "keywords": [
+                    "international",
+                    "keyword 1",
+                    "keyword 3"
+                ],
+                "subcategories": [
+                    "subcategory 1"
+                ],
+                "headequarterLocation": [
+                    "location 1"
+                ],
+                "activeIn": [
+                    "active 1"
+                ]
+            },
+            {
+                "image": "./assets/interactive-map/categories/category-9/logo-2.png",
+                "url": "example.com",
+                "keywords": [
+                    "international",
+                    "keyword 3"
+                ],
+                "subcategories": [
+                    "subcategory 2"
+                ],
+                "headequarterLocation": [
+                    "location 2"
+                ],
+                "activeIn": [
+                    "active 2"
+                ]
+            },
+            {
+                "image": "./assets/interactive-map/categories/category-9/logo-3.jpg",
+                "url": "example.com",
+                "keywords": [
+                    "keyword 1",
+                    "keyword 3"
+                ],
+                "subcategories": [
+                    "subcategory 3"
+                ],
+                "headequarterLocation": [
+                    "location 3"
+                ],
+                "activeIn": [
+                    "active 3"
+                ]
+            },
+            {
+                "image": "./assets/interactive-map/categories/category-9/logo-4.png",
+                "url": "example.com",
+                "keywords": [
+                    "international",
+                    "keyword 3",
+                    "keyword 2"
+                ],
+                "subcategories": [
+                    "subcategory 1"
+                ],
+                "headequarterLocation": [
+                    "location 1"
+                ],
+                "activeIn": [
+                    "active 1"
+                ]
+            },
+            {
+                "image": "./assets/interactive-map/categories/category-9/logo-5.png",
+                "url": "example.com",
+                "keywords": [
+                    "international",
+                    "keyword 1",
+                    "keyword 5"
+                ],
+                "subcategories": [
+                    "subcategory 2"
+                ],
+                "headequarterLocation": [
+                    "location 2"
+                ],
+                "activeIn": [
+                    "active 2"
+                ]
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416882/841b8e3e-3a82-4b91-9f26-d86170c178f0-menu-button-of-three-horizontal-lines.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/23",
+                "keywords": [],
+                "subcategories": [
+                    3,
+                    6,
+                    8
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "categoryName": "Category 10",
+        "categoryKey": "category-10",
+        "categoryImage": "./assets/interactive-map/categories/category-10.png",
+        "logos": [
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704415992/dbf51716-9a07-4be0-87c0-206c127b4131-SGX%20FX%20Logo%20%28RGB%29.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/16",
+                "keywords": [],
+                "subcategories": [
+                    7,
+                    14
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "categoryName": "Category 11",
+        "categoryKey": "category-11",
+        "categoryImage": "./assets/interactive-map/categories/category-11.png",
+        "logos": []
+    },
+    {
+        "id": 11,
+        "categoryName": "Category 12",
+        "categoryKey": "category-12",
+        "categoryImage": "./assets/interactive-map/categories/category-12.png",
+        "logos": [
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704415992/dbf51716-9a07-4be0-87c0-206c127b4131-SGX%20FX%20Logo%20%28RGB%29.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/16",
+                "keywords": [],
+                "subcategories": [
+                    7,
+                    14
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "categoryName": "Category 13",
+        "categoryKey": "category-13",
+        "categoryImage": "./assets/interactive-map/categories/category-13.png",
+        "logos": [
+            {
+                "image": "",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/1",
+                "keywords": [],
+                "subcategories": [
+                    1,
+                    18
+                ],
+                "headequarterLocation": "US",
+                "activeIn": null
+            },
+            {
+                "image": "",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/2",
+                "keywords": [],
+                "subcategories": [
+                    1,
+                    2,
+                    3,
+                    5,
+                    7,
+                    11,
+                    13,
+                    15,
+                    17,
+                    18,
+                    19,
+                    21,
+                    22,
+                    23,
+                    24,
+                    25,
+                    27,
+                    28
+                ],
+                "headequarterLocation": "Espoo, Finland",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704227404/convista-Logo-RGB_evchto.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/4",
+                "keywords": [],
+                "subcategories": [],
+                "headequarterLocation": "Cologne, Germany",
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704415992/dbf51716-9a07-4be0-87c0-206c127b4131-SGX%20FX%20Logo%20%28RGB%29.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/16",
+                "keywords": [],
+                "subcategories": [
+                    7,
+                    14
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416050/02c31b7a-cfb1-4082-a2f4-537907041a5f-Crowd%2BData%2BSystems.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/17",
+                "keywords": [],
+                "subcategories": [
+                    2,
+                    1
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            },
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416200/68db222d-3955-4e7f-a251-88919bc1ce1c-Finologee-new.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/19",
+                "keywords": [],
+                "subcategories": [
+                    4,
+                    6,
+                    8,
+                    29
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "categoryName": "Category 14",
+        "categoryKey": "category-14",
+        "categoryImage": "./assets/interactive-map/categories/category-14.png",
+        "logos": [
+            {
+                "image": "https://res.cloudinary.com/dq7aof6vb/image/upload/v1704416050/02c31b7a-cfb1-4082-a2f4-537907041a5f-Crowd%2BData%2BSystems.png.png",
+                "url": "https://treasurymapbackend-production.up.railway.app/api/v1/companies/17",
+                "keywords": [],
+                "subcategories": [
+                    2,
+                    1
+                ],
+                "headequarterLocation": null,
+                "activeIn": null
+            }
+        ]
+    }
+]
