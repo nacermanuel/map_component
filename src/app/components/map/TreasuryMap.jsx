@@ -23,6 +23,7 @@ const TreasuryMap = () => {
     'category-14': 'TR (Treasury Reporting)',
   }
 
+
   const [mapData, setMapData] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [selectCategoryOpen, setSelectCategoryOpen] = useState(false);
@@ -62,6 +63,8 @@ const TreasuryMap = () => {
   });
 
   const [resettingFrontLogos, setResettingFrontLogos] = useState(false);
+  const [subcategoriesData, setSubcategoriesData, ] = useState([])
+
 
   // Your fetchDataFromAPI implementation
   const fetchDataFromAPI = async () => {
@@ -85,6 +88,29 @@ const TreasuryMap = () => {
         console.error('Error fetching data from API:', error);
       });
   };
+
+  // Fetch the data for the subcategories list
+  const fetchSubcategories = async () => {
+
+    const subFetchDataURL = 'https://treasurymapbackend-production.up.railway.app/api/v1/subCategories'
+    
+    return fetch(subFetchDataURL)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        setSubcategoriesData(data);
+        //console.log(data);
+        return data;
+      })
+      .catch(error => {
+        console.error('Error fetching data from API:', error);
+      });
+
+  }
 
   const calculateScaleMobileLogos = () => {
     const width = window.innerWidth;
@@ -271,6 +297,7 @@ const TreasuryMap = () => {
   }, [selectedCategory, filteredLogos]);
   
 
+  // USEEFFECT INICIALIZADOR DE FETCH DE INFORMACION 
   useEffect(() => {
     const startMap = async () => {
       const data = await fetchDataFromAPI();
@@ -281,6 +308,9 @@ const TreasuryMap = () => {
     };
 
     startMap();
+
+    //CARGAR LA LISTA DE SUBCATEGORIES
+    fetchSubcategories();
 
     window.addEventListener('resize', calculateScaleMobileLogos);
 
@@ -436,14 +466,45 @@ const TreasuryMap = () => {
                   {filtersConfig['subcategories'].placeholder}
                 </span>
                 <div className={`filters-selection-list ${filtersConfig['subcategories'].open ? 'open' : ''}`}>
-                  {Object.keys(filtersConfig['subcategories'].allFilters).map((key) => (
-                    <div
-                      key={key}
-                      onClick={() => selectFilter('subcategories', filtersConfig['subcategories'].allFilters[key])}
-                      className={filtersConfig['subcategories'].selectedFilters.includes(filtersConfig['subcategories'].allFilters[key]) ? 'selected' : ''}>
-                      {filtersConfig['subcategories'].allFilters[key]}
-                    </div>
-                  ))}
+                    
+                    {
+                      subcategoriesData && Object.keys(filtersConfig['subcategories'].allFilters).map((key) => {
+                              const subcategoryId = filtersConfig['subcategories'].allFilters[key];
+                              const subcategory = subcategoriesData.find(subcat => subcat.id === subcategoryId);
+                              
+                              return (
+                                  <div
+                                      key={key}
+                                      onClick={() => selectFilter('subcategories', subcategoryId)}
+                                      className={filtersConfig['subcategories'].selectedFilters.includes(subcategoryId) ? 'selected' : ''}>
+                                      
+                                      {/* Render the name of the subcategory */}
+                                      {subcategory ? subcategory.name : 'Unknown Subcategory'}
+
+                                  </div>
+                              );
+                          })
+                    }                  
+                  
+
+                  
+                  
+                   {
+                  //  Object.keys(filtersConfig['subcategories'].allFilters).map((key) => (
+                  //   <div
+                  //     key={key}
+                  //     onClick={() => selectFilter('subcategories', filtersConfig['subcategories'].allFilters[key])}
+                  //     //onClick={() => selectFilter('subcategories', 'subcategory 1')}
+                  //     className={filtersConfig['subcategories'].selectedFilters.includes(filtersConfig['subcategories'].allFilters[key]) ? 'selected' : ''}>
+                      
+                      
+                  //     {filtersConfig['subcategories'].allFilters[key]}
+
+                  //   </div>
+                  // ))
+                  } 
+                  
+
                 </div>
               </div>
               <div className="current-filters-list">
