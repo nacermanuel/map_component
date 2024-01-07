@@ -38,7 +38,7 @@ const TreasuryMap = () => {
       placeholder: 'Type keyword',
       allFilters: [],
       selectedFilters: [],
-    },
+    }, 
     subcategories: {
       open: false,
       title: 'Sub-Category',
@@ -124,31 +124,59 @@ const TreasuryMap = () => {
     setMobileOpen((prevMobileOpen) => !prevMobileOpen);
   };  
 
+  // FUNCION buildFilters
+  // FUNCION buildFilters  
+  // LA DATA QUE RECIBE ES LA INFORMACION GENERAL DE LAS COMPANIAS TRAIDA DEL BACKEND
   const buildFilters = (data) => {
+    
+    //CREAR EL OBJETO FILTERS
     const filters = {};
     
+    // AL OBJETO "filters" LE CREA LAS MISMAS KEYS QUE TIENE "filtersConfig". 
+    // O SEA "keywords" "subcategories" "headequarterLocation" "activeIn"
     Object.keys(filtersConfig).forEach((filterKey) => {
       filters[filterKey] = [];
     });
+
+
+
+    //CON UN forEach RECORRE LA DATA GENERAL TRAIDA DEL BACKEND. ES DECIR RECORRE CADA UNA DE LAS CATEGORIAS
+    
     data?.forEach((category) => {
-      
+    
+      //LUEGO EN CADA INSTANCIA DE LAS CATEGORIAS, RECORRE LA PROPIEDAD "logos" , QUE EQUIVALE AL LISTADO DE LAS COMPANIAS
       category.logos.forEach((logo) => {
+        
+        //AHORA RECORRE EL OBJETO "filters" --QUE HASTA EL MOMENTO SOLO TIENE LOS KEYS "keywords" "subcategories" "headequarterLocation" "activeIn" VACIOS --
         Object.keys(filters).forEach((filterKey) => {
+          
           // Concatenate values for each filter type
+          // EN CADA CADA ITERACION SOBRE LOS KEYS DE "filters", LLENA LA PROPIEDADES 
+          //   QUIERE DECIR, QUE LUEGO DE TODO ESTE CUERPO "filters" VA A TENER TODAS SUS PROPIEDADES LLENAS CON LA INFORMACION 
+          // DE CADA UNA DE LAS EMPRESAS  
           filters[filterKey] = filters[filterKey].concat(logo[filterKey]);
         });
       });
     });
 
+
+
     // Convert to unique and sorted arrays
+    //RECORRE EL OBJETO "filters" UTILIZANDO CADA UNA DE SUS PROPIEDADES
     Object.keys(filters).forEach((filterKey) => {
+
+      // EN ESTA VARIABLE "uniqueValues" VA A ALMACENAR TODO LO CONTENIDO EN EL ARRAY DE LA PROPIEDAD DEL OBJETO "filters" 
+      // SOBRE LA QUE SE ESTA HACIENDO EL LOOP. CON ESAS BUILD-IN FUNCTIONS LO QUE SE ESTA BUSCANDO ES QUE ELIMINE LOS REPETIDOS
+      // EN CADA UNA DE LOS ARRAYS PERTENECIENTES A LAS PROPIEDADES DEL OBJETO "filters" 
       const uniqueValues = [...new Set(filters[filterKey])].sort();
+
       setFiltersConfig(prevConfig => ({
         ...prevConfig,
         [filterKey]: {
           ...prevConfig[filterKey],
           allFilters: uniqueValues
         }
+
       }));
     });
   };
@@ -255,42 +283,180 @@ const TreasuryMap = () => {
     </div>
   );
   
+
+
+  //ENTENDER "filteredLogos"
+
   const filteredLogos = useMemo(() => {
+
+   
     const selectedCategoryKey = selectedCategory;
+    
+    // GENERA UN NUEVO ARRAY QUE SOLO TIENE los "selectedFilters" del objeto "filtersConfig"
+    // MODIFICAR EL CODIGO PARA QUE SOLO SE PUEDA UN FILTRO PERO OJO AQUI CON VER QUE PASA CUANDO MAS DE UN FILTRO 
+    // AQUI VAMOS A BUSCAR QUE FILTRO ESTA ACTIVO Y QUE ELECCION SE HIZO EN ESE FILTRO
+    
+    let typeofFilter = ''
+    
     const selectedFilters = Object.values(filtersConfig)
-      .map((filter) => filter.selectedFilters)
+      .map((filterObj) => {
+        // console.log('filter:');
+        // console.log(filter);
+        
+        // IDENTIFICAR CUAL FUE EL TIPO DE FILTRO ELEGIDO
+        if(filterObj.selectedFilters.length > 0){
+          
+          if(filterObj.title == "Keywords"){
+
+            typeofFilter = "keywords"
+
+          } else if( filterObj.title == "Sub-Category"){
+
+            typeofFilter = "subcategories"
+
+          } else if( filterObj.title == "Headquarter location"){
+            
+            typeofFilter = "headequarterLocation"
+            
+          } else if( filterObj.title == "Active in" ){
+
+            typeofFilter = "activeIn"
+            
+          }
+
+        }
+
+
+        // DEVUELVE EL ARRAY CON EL FILTRO ELEGIDO
+        return filterObj.selectedFilters
+
+      })
       .flat();
-  
+    
+
     const noCategorySelected = !selectedCategoryKey;
   
+    // SI NO HAY CATEGORIA SELECCIONADA, Y NO HAY FILTRO SELECCIONADO, NO RENDERIZA NADA
     if (noCategorySelected && selectedFilters.length === 0) {
       return [];
     }
   
+
+    // ? EMPIEZA REFACTOR DEL ALGORITMO:
+    // ? EMPIEZA REFACTOR DEL ALGORITMO:
+
+    // AGREGAMOS TODAS LAS COMPANIES "logos" EN UN ARRAY
+    const allUniqueLogos = mapData
+      .map(item => item.logos) // Get all logos arrays
+      .reduce((acc, logos) => acc.concat(logos), []) // Flatten the array of arrays
+      .reduce((unique, logo) => {
+        // Add logo to unique array if not already present
+        if (!unique.some(item => item.image === logo.image && item.url === logo.url)) {
+          unique.push(logo);
+        }
+        return unique;
+      }, []);  
+
+    // console.log("allUniqueLogos");      
+    // console.log(allUniqueLogos);
+
+
+    //RECORRE CADA UNA DE LAS COMPANIAS
+    const logosFiltrados = allUniqueLogos.filter(logo => {
+            
+            // console.log('Array.isArray(logo[typeofFilter])');
+            // console.log(Array.isArray(logo[typeofFilter]));
+            // console.log('typeofFilter:');
+            // console.log(typeofFilter );
+            // console.log('logo[typeofFilter]:');
+            // console.log(logo[typeofFilter] );
+
+            // Check if the typeofFilter is an array or a string
+            if ( Array.isArray(logo[typeofFilter]) ) {
+                
+                // If it's an array, check if there's any overlap with selectedFilters
+                console.log("True");
+
+                return logo[typeofFilter].some(filter => selectedFilters.includes(filter));
+            } else {
+
+                console.log("False");
+                //console.log(logo[typeofFilter]);
+                // If it's a string, check if it matches any of the selectedFilters
+                return selectedFilters.includes(logo[typeofFilter]);
+            }
+        });  
+        
+    // console.log("logosFiltrados:");
+    // console.log(logosFiltrados);
+
+    
+    
+
+    // ? TERMINA REFACTOR DEL ALGORITMO:
+    // ? TERMINA REFACTOR DEL ALGORITMO:
+
+
+    // ! ESTA FUNCION FILTRA Y DEVUELVE LAS CATEGORIAS ITERANDO SOBRE EL "mapData"
+    // ! AQUI INICIA filteredCategories
     const filteredCategories = mapData.filter((category) => {
-      // Filter based on selected category
+
+      // Filter based on selected category    
+      // ESTA VARIABLE VA A VALIDAR O CONVERTIRSE EN true SI
+      // 1) NO HAY NINGUNA CATEGORIA SELECCIONADA
+      // 2) LA CATEGORIA SELECCIONADA ES LA MISMA QUE LA "categoryKey"
       const matchesCategory = noCategorySelected || category.categoryKey === selectedCategoryKey;
-  
+
       // Filter based on selected filters
       const matchesFilters =
+        
+        // EL SIGUIENTE "OR" EJECUTARA UN "true" SI ES QUE NO HAY NINGUN FILTRO ELEGIDO. 
         selectedFilters.length === 0 ||
-        category.logos.some((logo) =>
-          selectedFilters.every((filter) =>
-            logo.keywords.includes(filter) ||
+        
+        // SI HAY ALGUN FILTRO ELEGIDO, PROCEDERA A LA SIGUIENTE OPERACION 
+        // ITERARA SOBRE LOS "logos" (QUE SON LAS COMPANIAS DE CADA CATEGORIA DEL ARRAY "mapData") EN BUSQUEDA DE QUE 
+        // ALGUNO (.some) CUMPLA COMO true LA FUNCION PASADA EN EL CUERPO
+        category.logos.some((logo) => {
+
+          // CON selectedFilters.every() VA A RECORRER EL ARRAY "selectedFilters" E IDENTIFICAR SI TODOS SUS ELEMENTOS
+          // CUMPLEN CON LAS C
+          const secondLevelResult = selectedFilters.every((filter) => {            
+            
+            const thirdLevelResult = logo.keywords.includes(filter) ||
             logo.subcategories.includes(filter) ||
             logo.headequarterLocation.includes(filter) ||
             logo.activeIn.includes(filter)
-          )
-        );
-  
+
+            return thirdLevelResult
+          
+          })
+         
+          return secondLevelResult
+        
+        });
+    
       return matchesCategory && matchesFilters;
     });
-  
+
+    // ! AQUI TERMINA filteredCategories
+    // ! AQUI TERMINA filteredCategories
+    
+
+   
     // Extract logos from filtered categories
     const logos = filteredCategories.flatMap((category) => category.logos);
-  
-    return logos;
+
+    if(!!selectedCategory){
+      return logos;
+    }else{
+      return logosFiltrados
+    }
+    
+
+
   }, [selectedCategory, filtersConfig, mapData]);
+
+
 
   const frontMapOpen = useMemo(() => {
     return selectedCategory || filteredLogos.length;
@@ -385,7 +551,13 @@ const TreasuryMap = () => {
               ))}
               <div className={`category-logos ${frontMapOpen ? 'open' : ''}`} style={{ transform: `scale(${scaleMobileIcons})` }}>
                 <div className={`category-logos-inner ${filteredLogos.length > 10 ? 'more-than-10' : ''}`}>
-                  {filteredLogos.map((logo, index) => (
+                  
+                  
+                  {
+
+                  //EN ESTE BLOQUE SE RENDERIZAN LOS LOGOS SELECCIONADOS. 
+                  
+                  filteredLogos.map((logo, index) => (
                     <div key={index} className="category-logo">
                       <div className="category-logo-inner">
                         <a href={logo.url}>
@@ -393,7 +565,10 @@ const TreasuryMap = () => {
                         </a>
                       </div>
                     </div>
-                  ))}
+                  ))
+                  
+                  }
+
                 </div>
               </div>
             </div>
@@ -408,7 +583,8 @@ const TreasuryMap = () => {
           <div className="interactive-map-filter-inner">
 
             <div className="category-filters-wrapper">
-              <p>{filtersConfig['keywords'].title}</p>
+              {/* <p>{filtersConfig['keywords'].title}</p> */}
+              <p>{`Keywords`}</p>
               <div className="category-filters">
                 <span className="category-filters-placeholder" onClick={() => toggleSelectFilters('keywords')}>
                   {filtersConfig['keywords'].placeholder}
@@ -461,6 +637,8 @@ const TreasuryMap = () => {
 
             <div className="category-filters-wrapper">
               <p>{filtersConfig['subcategories'].title}</p>
+              {/* <p>{`Sub-Category`}</p> */}
+
               <div className="category-filters">
                 <span className="category-filters-placeholder" onClick={() => toggleSelectFilters('subcategories')}>
                   {filtersConfig['subcategories'].placeholder}
@@ -468,7 +646,12 @@ const TreasuryMap = () => {
                 <div className={`filters-selection-list ${filtersConfig['subcategories'].open ? 'open' : ''}`}>
                     
                     {
+
+                      // RENDERIZACION DEL DROPDOWN DE SUBCATEGORIES
+
                       subcategoriesData && Object.keys(filtersConfig['subcategories'].allFilters).map((key) => {
+                              
+                              //console.log(key);
                               const subcategoryId = filtersConfig['subcategories'].allFilters[key];
                               const subcategory = subcategoriesData.find(subcat => subcat.id === subcategoryId);
                               
@@ -479,6 +662,7 @@ const TreasuryMap = () => {
                                       className={filtersConfig['subcategories'].selectedFilters.includes(subcategoryId) ? 'selected' : ''}>
                                       
                                       {/* Render the name of the subcategory */}
+                                      
                                       {subcategory ? subcategory.name : 'Unknown Subcategory'}
 
                                   </div>
@@ -524,19 +708,27 @@ const TreasuryMap = () => {
 
             <div className="category-filters-wrapper">
               <p>{filtersConfig['headequarterLocation'].title}</p>
+              {/* <p>{`Headquarter location`}</p>               */}
               <div className="category-filters">
                 <span className="category-filters-placeholder" onClick={() => toggleSelectFilters('headequarterLocation')}>
                   {filtersConfig['headequarterLocation'].placeholder}
                 </span>
                 <div className={`filters-selection-list ${filtersConfig['headequarterLocation'].open ? 'open' : ''}`}>
-                  {Object.keys(filtersConfig['headequarterLocation'].allFilters).map((key) => (
+                  
+                  {
+
+                  //RENDERIZACION DEL DROPDOWN DE HEADQUARTER
+
+                  Object.keys(filtersConfig['headequarterLocation'].allFilters).map((key) => (
                     <div
                       key={key}
                       onClick={() => selectFilter('headequarterLocation', filtersConfig['headequarterLocation'].allFilters[key])}
                       className={filtersConfig['headequarterLocation'].selectedFilters.includes(filtersConfig['headequarterLocation'].allFilters[key]) ? 'selected' : ''}>
                       {filtersConfig['headequarterLocation'].allFilters[key]}
                     </div>
-                  ))}
+                  ))
+                  
+                  }
                 </div>
               </div>
               <div className="current-filters-list">
@@ -556,6 +748,7 @@ const TreasuryMap = () => {
 
             <div className="category-filters-wrapper">
               <p>{filtersConfig['activeIn'].title}</p>
+              {/* <p>{`Active in`}</p>                    */}
               <div className="category-filters">
                 <span className="category-filters-placeholder" onClick={() => toggleSelectFilters('activeIn')}>
                   {filtersConfig['activeIn'].placeholder}
