@@ -63,7 +63,8 @@ const TreasuryMap = () => {
   });
 
   const [resettingFrontLogos, setResettingFrontLogos] = useState(false);
-  const [subcategoriesData, setSubcategoriesData, ] = useState([])
+  const [subcategoriesData, setSubcategoriesData, ] = useState([]) ;
+  const [activeinData, setActiveinData ] = useState([]) ; 
 
 
   // Your fetchDataFromAPI implementation
@@ -111,6 +112,29 @@ const TreasuryMap = () => {
       });
 
   }
+  // Fetch the data for the asctiveIn list
+  const fetchActiveInData = async () => {
+
+    const activeInFetchDataURL = 'https://treasurymapbackend-production.up.railway.app/api/v1/countries'
+    
+    return fetch(activeInFetchDataURL)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        setActiveinData(data);
+        //console.log(data);
+        return data;
+      })
+      .catch(error => {
+        console.error('Error fetching data from API:', error);
+      });
+
+  }
+
 
   const calculateScaleMobileLogos = () => {
     const width = window.innerWidth;
@@ -182,7 +206,27 @@ const TreasuryMap = () => {
   };
 
   const toggleSelectCategory = () => {
-    setSelectCategoryOpen((open) => !open);
+
+    // LAS SIGUIENTES 13 LINEAS SON PARA IDENTIFICAR SI YA HAY ALGUN FILTRO ELEGIDO 
+
+    let hasSelectedFilters = false;
+
+    // Iterate over the keys of the filtersConfig object
+    for (const key in filtersConfig) {
+      if (filtersConfig.hasOwnProperty(key)) {
+        // Check if the selectedFilters array is not empty
+        if (filtersConfig[key].selectedFilters.length > 0) {
+          hasSelectedFilters = true;
+          break; // Exit the loop as we found a non-empty selectedFilters array
+        }
+      }
+    }
+    
+    if(!hasSelectedFilters){
+      setSelectCategoryOpen((open) => !open);      
+    }
+
+
   };
 
   const selectCategory = (key) => {
@@ -194,23 +238,56 @@ const TreasuryMap = () => {
     );
   };
 
+  // const clickedOnFilter = (key) =>{
+    
+  //   toggleSelectFilters(key)
+
+
+  //   onClick={() => selectFilter('keywords', filtersConfig['keywords'].allFilters[key])}    
+  // }
+
   const toggleSelectFilters = (filterKey) => {
-    setFiltersConfig((prevConfig) => ({
-      ...prevConfig,
-      [filterKey]: {
-        ...prevConfig[filterKey],
-        open: !prevConfig[filterKey].open
+
+
+    // LAS SIGUIENTES 13 LINEAS SON PARA IDENTIFICAR SI YA HAY ALGUN FILTRO ELEGIDO 
+
+    let hasSelectedFilters = false;
+
+    // Iterate over the keys of the filtersConfig object
+    for (const key in filtersConfig) {
+      if (filtersConfig.hasOwnProperty(key)) {
+        // Check if the selectedFilters array is not empty
+        if (filtersConfig[key].selectedFilters.length > 0) {
+          hasSelectedFilters = true;
+          break; // Exit the loop as we found a non-empty selectedFilters array
+        }
       }
-    }));
+    }
+
+
+
+    // SI NO HAY ALGUN FILTRO SELECCIONADO, NO ABRAS LOS LISTADOS
+    if(!hasSelectedFilters && !selectedCategory) {
+      setFiltersConfig((prevConfig) => ({
+        ...prevConfig,
+        [filterKey]: {
+          ...prevConfig[filterKey],
+          open: !prevConfig[filterKey].open
+        }
+      }));
+    }
+
+
   };
 
   const selectFilter = (key, filter) => {
+    
+
+    toggleSelectFilters(key)
+    
     setFiltersConfig((prevConfig) => {
       const currentFilters = prevConfig[key];
-      if (currentFilters.open) {
-        toggleSelectFilters(key);
-      }
-  
+      
       if (currentFilters.selectedFilters.includes(filter)) {
         const updatedFilters = currentFilters.selectedFilters.filter((selectedFilter) => selectedFilter !== filter);
   
@@ -375,7 +452,6 @@ const TreasuryMap = () => {
             if ( Array.isArray(logo[typeofFilter]) ) {
                 
                 // If it's an array, check if there's any overlap with selectedFilters
-                console.log("True");
 
                 return logo[typeofFilter].some(filter => selectedFilters.includes(filter));
             } else {
@@ -477,6 +553,7 @@ const TreasuryMap = () => {
 
     //CARGAR LA LISTA DE SUBCATEGORIES
     fetchSubcategories();
+    fetchActiveInData();
 
     window.addEventListener('resize', calculateScaleMobileLogos);
 
@@ -594,6 +671,7 @@ const TreasuryMap = () => {
                     <div
                       key={key}
                       onClick={() => selectFilter('keywords', filtersConfig['keywords'].allFilters[key])}
+                      
                       className={filtersConfig['keywords'].selectedFilters.includes(filtersConfig['keywords'].allFilters[key]) ? 'selected' : ''}>
                       {filtersConfig['keywords'].allFilters[key]}
                     </div>
@@ -669,33 +747,14 @@ const TreasuryMap = () => {
                               );
                           })
                     }                  
-                  
-
-                  
-                  
-                   {
-                  //  Object.keys(filtersConfig['subcategories'].allFilters).map((key) => (
-                  //   <div
-                  //     key={key}
-                  //     onClick={() => selectFilter('subcategories', filtersConfig['subcategories'].allFilters[key])}
-                  //     //onClick={() => selectFilter('subcategories', 'subcategory 1')}
-                  //     className={filtersConfig['subcategories'].selectedFilters.includes(filtersConfig['subcategories'].allFilters[key]) ? 'selected' : ''}>
-                      
-                      
-                  //     {filtersConfig['subcategories'].allFilters[key]}
-
-                  //   </div>
-                  // ))
-                  } 
-                  
-
+              
                 </div>
               </div>
               <div className="current-filters-list">
                 <div className="current-filters-list-wrapper">
                   {filtersConfig['subcategories'].selectedFilters.map((filter) => (
                     <div key={filter} className="current-filters-list-item">
-                      {filter}
+                      {subcategoriesData.find(r => r.id === filter)?.name || filter}
                       <div onClick={() => selectFilter('subcategories', filter)}>x</div>
                     </div>
                   ))}
@@ -754,21 +813,59 @@ const TreasuryMap = () => {
                   {filtersConfig['activeIn'].placeholder}
                 </span>
                 <div className={`filters-selection-list ${filtersConfig['activeIn'].open ? 'open' : ''}`}>
-                  {Object.keys(filtersConfig['activeIn'].allFilters).map((key) => (
-                    <div
-                      key={key}
-                      onClick={() => selectFilter('activeIn', filtersConfig['activeIn'].allFilters[key])}
-                      className={filtersConfig['activeIn'].selectedFilters.includes(filtersConfig['activeIn'].allFilters[key]) ? 'selected' : ''}>
-                      {filtersConfig['activeIn'].allFilters[key]}
-                    </div>
-                  ))}
+                  
+                    {
+
+                      // RENDERIZACION DEL DROPDOWN DE SUBCATEGORIES
+
+                      activeinData && Object.keys(filtersConfig['activeIn'].allFilters).map((key) => {
+                              
+                              //console.log(key);
+                              const activeinId = filtersConfig['activeIn'].allFilters[key];
+                              // console.log("key:");
+                              // console.log(key);                                 
+                              // console.log("filtersConfig['activeIn'].allFilters[key]:");
+                              // console.log(filtersConfig['activeIn'].allFilters[key]);
+                              // console.log("activeinId");
+                              // console.log(activeinId);                              
+                              const activein = activeinData.find(subcat => subcat.id === activeinId);
+                              
+                              return (
+                                  <div
+                                      key={key}
+                                      onClick={() => selectFilter('activeIn', activeinId)}
+                                      className={filtersConfig['activeIn'].selectedFilters.includes(activeinId) ? 'selected' : ''}>
+                                      
+                                      {/* Render the name of the subcategory */}
+                                      
+                                      {activein ? activein.name : 'Unknown Region'}
+
+                                  </div>
+                              );
+                          })
+                    }  
+
+
+                  
+                  
+                  {
+                    // Object.keys(filtersConfig['activeIn'].allFilters).map((key) => (
+                    //   <div
+                    //     key={key}
+                    //     onClick={() => selectFilter('activeIn', filtersConfig['activeIn'].allFilters[key])}
+                    //     className={filtersConfig['activeIn'].selectedFilters.includes(filtersConfig['activeIn'].allFilters[key]) ? 'selected' : ''}>
+                    //     {filtersConfig['activeIn'].allFilters[key]}
+                    //   </div>
+                    // ))
+                  }
+
                 </div>
               </div>
               <div className="current-filters-list">
                 <div className="current-filters-list-wrapper">
                   {filtersConfig['activeIn'].selectedFilters.map((filter) => (
                     <div key={filter} className="current-filters-list-item">
-                      {filter}
+                      {activeinData.find(r => r.id === filter)?.name || filter}
                       <div onClick={() => selectFilter('activeIn', filter)}>x</div>
                     </div>
                   ))}
