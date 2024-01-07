@@ -344,8 +344,16 @@ const TreasuryMap = () => {
   //DONDE SE MARCA EL NUMERO DE LA CATEGORIA Y EL NUMERO DE LOGO DENTRO DE ESA CATEGORIA
 
   const renderCategoryLogos = (category, logoCount) => (
+    
+    //AQUI UTILIZA EL PRIMER PARAMETRO "category" para definir la claas del DIV padre, que habilitara los estilos de cada categoria del mapa estatico
+    // ACTUALMENTE ES ENVIADO MANUALMENTE
     <div className={`category-static ${category}`}>
-      {Array.from({ length: logoCount }).map((_, index) => (
+
+      
+      {
+      // REALIZARA UN LOOP, LA CANTIDAD DE VECES QUE VENGA INDICADO EN EL SEGUNDO PARAMETRO, "logoCount", QUE ACTUALMENTE ES ENVIADO MANUALMENTE
+      Array.from({ length: logoCount }).map((_, index) => (
+        
         <div key={index}>
           <a href="http://www.example.com" target="_blank">
             <div className="category-logo-wrapper">
