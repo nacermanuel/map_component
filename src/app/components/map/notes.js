@@ -1,7 +1,3 @@
-EL MAPA INICIAL EN DESKTOP TIENE CIERTAS FUNCIONALIDADES QUE HACEN QUE SU RENDERIZACION (LOGOS Y TITULOS) SEA PROGRAMATICA
-SIN EMBARGO, LA MANERA EN QUE LOS LOGOS ESTAN ACOMODADOS, ES MANUAL Y ESTATICA. 
-
-
   const categories = {
     'category-1': 'FIDP (Financial Instrument Dealing Platform)',
     'category-2': 'FDF (Financial Data Feeding)',
@@ -18,3 +14,5 @@ SIN EMBARGO, LA MANERA EN QUE LOS LOGOS ESTAN ACOMODADOS, ES MANUAL Y ESTATICA.
     'category-13': 'BSG (Bank Single gateway)',
     'category-14': 'TR (Treasury Reporting)',
   }
+
+
