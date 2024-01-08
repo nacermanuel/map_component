@@ -4,8 +4,8 @@ import staticdata from './staticdata.json'
 
 
 const TreasuryMap = () => {
-  const mapCenterTitle = 'assets/interactive-map/the-treasury-tech-landscape-title.png';
-  const mapBackgroundImage = 'assets/interactive-map/background.webp'
+  const mapCenterTitle = 'https://res.cloudinary.com/dq7aof6vb/image/upload/v1704675764/the-treasury-tech-landscape-title_g8yzli.png';
+  const mapBackgroundImage = 'https://res.cloudinary.com/dq7aof6vb/image/upload/v1704675763/background_gs0j76.webp'
 
   const categories = {
     'category-1': 'FIDP (Financial Instrument Dealing Platform)',
@@ -647,7 +647,7 @@ const TreasuryMap = () => {
           <div className={`interactive-map-inner ${frontMapOpen ? 'front-open' : ''}`}>
             <div className="map-title-wrapper">
               <img className="map-title" src={mapCenterTitle} alt="" />
-            </div>
+            </div> 
             <div className="map-static-logos">
               <div className="dividers">
                 {Array.from({ length: 15 }).map((_, index) => (
