@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './TreasuryMap.css'
+import staticdata from './staticdata.json'
 
 
 const TreasuryMap = () => {
@@ -332,42 +333,102 @@ const TreasuryMap = () => {
   };
 
 
-  // ESTA FUNCION ES LLAMADA VARIAS VECES DE FORMA ESTATICA 
-  // ESTA FUNCION renderCategoryLogos TOMA COMO PARAMETROS "CATEGORY" Y "LOGOCOUNT"
-  // PARAMETRO "CATEGORY" ES ENVIADO DE FORMA ESTATICA DESDE EL HTML ESCRITO Y SE ENCARGA DE ESPECIFICAR EL CLASS DE EL DIV PARA 
-  // SEGUN ESO DISTRIBUIR LOS LOGOS EN EL ESPACIO PORQUE 
-  // EL PARAMETRO "logoCount" ES DEFINIDO MANUALMENTE, LITERALMENTE ES UN NUMERO ESCRITO. ESTE NUMERO UNICAMENTE SIRVE PARA 
-  // QUE SEPA CUANTAS ITERACIONES TIENE QUE HACER EL MAP 
-  // EL MAP GENERA UN INDEX EN CADA ITERACION Y ES ESE INDEX EL QUE COLOCA EN LA PLANTILLA DE TEXTO DENTRO DE LAS BACKTICKS
+// !! ------- START REFACTOR DE RENDERCATEGORYLOGOS 
+ 
+  const renderCategoryLogos = (category, logoCount) => {
+    const findLogoUrl = (category, index) => {
+      const publicId = `${category}-logo-${index}`;
+      const logo = staticdata.find(logo => logo.public_id === publicId);
+      return logo ? logo.url : 'default-image-url.png'; // Provide a default image URL if not found
+    };
 
-  //ESTO QUIERE DECIR QUE PARA QUE ESTE CODIGO FUNCIONE, TIENES QUE TENER CONTROLADO EL NOMBRE CON EL QUE ES ALMACENADO EL LOGO, 
-  //DONDE SE MARCA EL NUMERO DE LA CATEGORIA Y EL NUMERO DE LOGO DENTRO DE ESA CATEGORIA
+  let sumaID = {
+      'category-1': 0,
+      'category-2': 11,
+      'category-3': 16,
+      'category-4': 21,
+      'category-5': 30,
+      'category-6': 43,
+      'category-7': 60,
+      'category-8': 68,
+      'category-9': 75,
+      'category-10': 80,
+      'category-11': 88,
+      'category-12': 94,
+      'category-13': 98,
+      'category-14': 113,
+    }  
 
-  const renderCategoryLogos = (category, logoCount) => (
+    return (
+      <div className={`category-static ${category}`}>
+      {
+        
+        Array.from({ length: logoCount }).map((_, index) => {
+        
+          
+         return (    
+            <div key={index}>
+              <a href={`https://treasurymap.vercel.app/companyPage/${1 + index + sumaID[category]}`} >
+                <div className="category-logo-wrapper">
+                  <img
+                    src={findLogoUrl(category, index + 1)}
+                    alt="Logo"
+                  />
+                </div>
+              </a>
+            </div>
+          )
+
+         })
+      
+      }
+      </div>
+    );
+  };
+
+
+// !! -------END REFACTOR DE RENDERCATEGORYLOGOS
+
+
+// ? -----------OLD RENDERCATEGORYLOGOS --------------------
+// ? -----------OLD RENDERCATEGORYLOGOS
+    // ESTA FUNCION ES LLAMADA VARIAS VECES DE FORMA ESTATICA 
+    // ESTA FUNCION renderCategoryLogos TOMA COMO PARAMETROS "CATEGORY" Y "LOGOCOUNT"
+    // PARAMETRO "CATEGORY" ES ENVIADO DE FORMA ESTATICA DESDE EL HTML ESCRITO Y SE ENCARGA DE ESPECIFICAR EL CLASS DE EL DIV PARA 
+    // SEGUN ESO DISTRIBUIR LOS LOGOS EN EL ESPACIO PORQUE 
+    // EL PARAMETRO "logoCount" ES DEFINIDO MANUALMENTE, LITERALMENTE ES UN NUMERO ESCRITO. ESTE NUMERO UNICAMENTE SIRVE PARA 
+    // QUE SEPA CUANTAS ITERACIONES TIENE QUE HACER EL MAP 
+    // EL MAP GENERA UN INDEX EN CADA ITERACION Y ES ESE INDEX EL QUE COLOCA EN LA PLANTILLA DE TEXTO DENTRO DE LAS BACKTICKS
+
+    //ESTO QUIERE DECIR QUE PARA QUE ESTE CODIGO FUNCIONE, TIENES QUE TENER CONTROLADO EL NOMBRE CON EL QUE ES ALMACENADO EL LOGO, 
+    //DONDE SE MARCA EL NUMERO DE LA CATEGORIA Y EL NUMERO DE LOGO DENTRO DE ESA CATEGORIA
+
+    // const renderCategoryLogos = (category, logoCount) => (
     
-    //AQUI UTILIZA EL PRIMER PARAMETRO "category" para definir la claas del DIV padre, que habilitara los estilos de cada categoria del mapa estatico
-    // ACTUALMENTE ES ENVIADO MANUALMENTE
-    <div className={`category-static ${category}`}>
+  //   //AQUI UTILIZA EL PRIMER PARAMETRO "category" para definir la claas del DIV padre, que habilitara los estilos de cada categoria del mapa estatico
+  //   // ACTUALMENTE ES ENVIADO MANUALMENTE
+    //   <div className={`category-static ${category}`}>
 
       
-      {
-      // REALIZARA UN LOOP, LA CANTIDAD DE VECES QUE VENGA INDICADO EN EL SEGUNDO PARAMETRO, "logoCount", QUE ACTUALMENTE ES ENVIADO MANUALMENTE
-      Array.from({ length: logoCount }).map((_, index) => (
-        
-        <div key={index}>
-          <a href="http://www.example.com" target="_blank">
-            <div className="category-logo-wrapper">
-              <img
-                src={`assets/interactive-map/static-map-logos/${category}-logo-${index + 1}.png`}
-                alt="Logo"
-              />
-            </div>
-          </a>
-        </div>
-      ))}
-    </div>
-  );
+    //     {
+    //     // REALIZARA UN LOOP, LA CANTIDAD DE VECES QUE VENGA INDICADO EN EL SEGUNDO PARAMETRO, "logoCount", QUE ACTUALMENTE ES ENVIADO MANUALMENTE
+    //     Array.from({ length: logoCount }).map((_, index) => (
+          
+    //       <div key={index}>
+    //         <a href="http://www.example.com" target="_blank">
+    //           <div className="category-logo-wrapper">
+    //             <img
+    //               src={`assets/interactive-map/static-map-logos/${category}-logo-${index + 1}.png`}
+    //               alt="Logo"
+    //             />
+    //           </div>
+    //         </a>
+    //       </div>
+    //     ))}
+    //   </div>
+    // );
   
+
 
 
   //ENTENDER "filteredLogos"
@@ -594,7 +655,13 @@ const TreasuryMap = () => {
                 ))}
               </div>
 
-              {/*  "MANUALMENTE" COLOCA CADA UNA DE LAS CATEGORIAS PATA QUE EJECUTE LA FUNCION RENDERCATEGORYLOGOS*/}
+              {
+              /*  "MANUALMENTE" COLOCA CADA UNA DE LAS CATEGORIAS PATA QUE EJECUTE LA FUNCION RENDERCATEGORYLOGOS*/
+              // ! RENDERIZADO LOGOS ESTATICOS
+              // ! RENDERIZADO LOGOS ESTATICOS
+              // ! RENDERIZADO LOGOS ESTATICOS
+
+              }
 
               {renderCategoryLogos('category-1', 11)}
               {renderCategoryLogos('category-2', 5)}
